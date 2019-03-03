@@ -8,11 +8,6 @@
 
 import Foundation
 
-struct EventFavoritesCache {
-    let eventArray: [String]
-    let eventDictionary: [String: String]
-}
-
 // Provides events from Network Service
 class EventService {
     
@@ -31,37 +26,45 @@ class EventService {
         }
     }
     
-    func updateEvent(_ model:EventViewModel){
-        
-        let id = model.eventId
-        let idString = String(id)
-        
-        allFavoritesFromCache[idString] = ""
-        
-        UserDefaults.standard.set(allFavoritesFromCache, forKey: "FavoriteEvents")
-        print("test")
-    }
+    // MARK: - Get Event
     
     func eventsForSearchTerm(_ searchTerm : String,
                              completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void) {
         
-        var newURL : String = baseURL
-        newURL = newURL + "&q=\(searchTerm)"
+        let encodedSearchTerm = self.encodeSearchTerm(searchTerm)
+        let searchURL = baseURL + "&q=" + encodedSearchTerm
         
         print("Searching for: \(searchTerm)")
         
-        self.requestEvents(for: newURL, completion: completion)
+        self.requestEvents(for: searchURL, completion: completion)
     }
     
     func latestEvents(completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void) {
         
-        var newURL : String = baseURL
-        newURL = newURL + "&per_page=100"
+        let latestEventURL = baseURL + "&per_page=100"
         
         print("🚀 Loading initial events")
         
-        self.requestEvents(for: newURL, completion: completion)
+        self.requestEvents(for: latestEventURL, completion: completion)
     }
+    
+    // MARK: - Update Event
+    
+    func updateEvent(_ model:EventViewModel){
+        
+        let id = String(model.eventId)
+        
+        //this needs updating
+        if (model.isFavoriteEvent()){
+            allFavoritesFromCache[id] = ""
+        }else{
+            allFavoritesFromCache.removeValue(forKey: id)
+        }
+        
+        UserDefaults.standard.set(allFavoritesFromCache, forKey: "FavoriteEvents")
+    }
+    
+    // MARK: - Request Event Helpers
     
     func requestEvents(for URLString: String, completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void){
         
@@ -108,5 +111,9 @@ class EventService {
                                         print("🚨 NetworkService error:\(error)")
                                     }
         })
+    }
+    
+    func encodeSearchTerm(_ searchTerm : String) -> String {
+        return searchTerm.replacingOccurrences(of: " ", with: "+")
     }
 }
