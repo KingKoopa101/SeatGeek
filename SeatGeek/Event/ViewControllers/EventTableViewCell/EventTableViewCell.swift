@@ -15,6 +15,7 @@ class EventTableViewCell : UITableViewCell {
     @IBOutlet weak var eventTitleLabel: UILabel!
     @IBOutlet weak var eventLocationLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
+    @IBOutlet weak var eventFavoriteIconImageView: UIImageView!
     
     func configure(with eventModel: EventViewModel){
         self.eventTitleLabel.text = eventModel.shortTitleDisplayString()
@@ -22,6 +23,12 @@ class EventTableViewCell : UITableViewCell {
         self.eventLocationLabel.text = eventModel.venueLocationDisplayString()
         if let imageURL = URL(string: eventModel.venueImageURLString()){
             self.eventImageView.kf.setImage(with: imageURL)
+        }
+        
+        if (eventModel.isFavoriteEvent()){
+            self.eventFavoriteIconImageView.image = UIImage(named: "Heart")
+        }else{
+            self.eventFavoriteIconImageView.image = nil
         }
     }
 }

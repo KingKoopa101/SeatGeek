@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class EventTableViewController: UITableViewController {
-    
-    weak var delegate: EventTableViewControllerDelegate?
+
     var events : [EventViewModel] = []
     
     override func viewDidLoad() {

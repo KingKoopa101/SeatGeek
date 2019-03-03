@@ -10,9 +10,15 @@ import Foundation
 
 class EventViewModel {
     private let event : Event
+    private var isFavorite : Bool
     
-    init(_ event:Event) {
+    var eventId : Int {
+        return event.id
+    }
+    
+    init(_ event:Event, _ isFavorite:Bool) {
         self.event = event
+        self.isFavorite = isFavorite
     }
     
     //Event
@@ -45,9 +51,13 @@ class EventViewModel {
     }
     
     func selectedAsFavorite(_ selected : Bool){
-        print("Event Favorited: \(event.title) :\(selected)")
+        isFavorite = selected
+        print("👍 Event Favorited: \(event.title) :\(selected)")
     }
     
+    func isFavoriteEvent() -> Bool{
+        return isFavorite
+    }
     
     //Venue
     

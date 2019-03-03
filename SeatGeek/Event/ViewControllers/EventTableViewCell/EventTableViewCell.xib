@@ -53,11 +53,20 @@
                             </stackView>
                         </subviews>
                     </stackView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8kM-HT-ez2">
+                        <rect key="frame" x="7" y="15" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="UEU-bd-ul9"/>
+                            <constraint firstAttribute="height" constant="25" id="V6o-LD-ibE"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="ytP-TD-Tiy" secondAttribute="trailing" constant="10" id="0Ga-1X-WjY"/>
                     <constraint firstItem="ytP-TD-Tiy" firstAttribute="leading" secondItem="wI6-MS-n1i" secondAttribute="trailing" constant="10" id="2WR-89-AZI"/>
                     <constraint firstItem="wI6-MS-n1i" firstAttribute="leading" secondItem="xBc-lf-c3u" secondAttribute="leading" constant="20" id="OZT-7g-9ED"/>
+                    <constraint firstItem="8kM-HT-ez2" firstAttribute="baseline" secondItem="wI6-MS-n1i" secondAttribute="firstBaseline" constant="20" id="lhJ-V9-0iK"/>
+                    <constraint firstItem="wI6-MS-n1i" firstAttribute="leading" secondItem="8kM-HT-ez2" secondAttribute="trailing" constant="-12" id="moc-td-cBE"/>
                     <constraint firstItem="wI6-MS-n1i" firstAttribute="top" secondItem="ytP-TD-Tiy" secondAttribute="top" id="nS9-ZE-iUU"/>
                     <constraint firstItem="ytP-TD-Tiy" firstAttribute="top" secondItem="xBc-lf-c3u" secondAttribute="top" constant="20" id="oyf-ca-RS7"/>
                     <constraint firstAttribute="bottom" secondItem="ytP-TD-Tiy" secondAttribute="bottom" constant="20" id="xzM-Wy-a6q"/>
@@ -65,6 +74,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="eventDateLabel" destination="QWN-sK-War" id="5ds-bv-lXF"/>
+                <outlet property="eventFavoriteIconImageView" destination="8kM-HT-ez2" id="Bsc-ep-c2i"/>
                 <outlet property="eventImageView" destination="wI6-MS-n1i" id="I56-UL-CvF"/>
                 <outlet property="eventLocationLabel" destination="coN-bM-X5P" id="Fon-od-k1h"/>
                 <outlet property="eventTitleLabel" destination="s6J-Mo-jdH" id="gsf-p7-T2I"/>

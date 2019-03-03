@@ -16,14 +16,25 @@ struct EventFavoritesCache {
 // Provides events from Network Service
 class EventService {
     
-    private let allFavoritesFromCache: [String:String]
+    private var allFavoritesFromCache: [String:String]
     private var events : [Event] = []
+    private var eventViewModels : [EventViewModel] = []
     private let baseURL : String = "https://api.seatgeek.com/2/events?client_id=MTU1NDY5MTZ8MTU1MTQwMzUwMy4xMQ"
     
     //
     init() {
         //need to load from cache.
         allFavoritesFromCache = [:]
+    }
+    
+    func updateEvent(_ model:EventViewModel){
+        
+        let id = model.eventId
+        let idString = String(id)
+        
+        allFavoritesFromCache[idString] = ""
+        
+        print("test")
     }
     
     func eventsForSearchTerm(_ searchTerm : String,
@@ -72,8 +83,18 @@ class EventService {
                                             self?.events = jsonData.events
                                             var tempArray: [EventViewModel] = []
                                             for event in jsonData.events{
-                                                tempArray.append(EventViewModel(event))
+                                                let newModel : EventViewModel
+                                                
+                                                if (self?.allFavoritesFromCache[String(event.id)] != nil){
+                                                    newModel = EventViewModel(event, true)
+                                                }else{
+                                                    newModel = EventViewModel(event, false)
+                                                }
+                                                
+                                                tempArray.append(newModel)
                                             }
+                                            
+                                            self?.eventViewModels = tempArray
                                             
                                             completion(tempArray, nil)
                                         }

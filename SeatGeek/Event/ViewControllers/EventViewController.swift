@@ -18,11 +18,11 @@ class EventViewController : UIViewController {
     
     //how can we initialize with this value
     var eventViewModel : EventViewModel?
+    weak var delegate: EventViewControllerDelegate?
     
     override func viewDidLoad() {
         
         setupUI()
-        
         setupDataFromEvent()
     }
     
@@ -35,14 +35,26 @@ class EventViewController : UIViewController {
         
         self.navigationItem.titleView = myView
         
-        let favoriteButton = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(action(_:)))
+        setupButton()
+    }
+    
+    func setupButton () {
+        let favoriteButton : UIBarButtonItem
+        
+        if(eventViewModel?.isFavoriteEvent() ?? false){
+            favoriteButton = UIBarButtonItem(image: UIImage(named: "Heart"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(action(_:)))
+        }else{
+            favoriteButton = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(action(_:)))
+        }
+        
         
         navigationItem.rightBarButtonItem = favoriteButton
-        
-        
     }
     
     func setupDataFromEvent() {
@@ -57,8 +69,15 @@ class EventViewController : UIViewController {
         }
     }
     
-    @IBAction func action(_ sender: AnyObject) {
-//        print("CustomRightViewController IBAction invoked!")
-        eventViewModel?.selectedAsFavorite(true)
+    @IBAction func action(_ sender: UIButton) {
+        if let isFavorite = eventViewModel?.isFavoriteEvent(){
+            sender.isSelected = isFavorite
+            
+            //WIP
+            eventViewModel?.selectedAsFavorite(!isFavorite)
+            self.delegate?.eventMarkedAsFavorite(eventViewModel!)
+            
+            setupButton()
+        }
     }
 }

@@ -12,54 +12,60 @@ import UIKit
 class EventTableCoordinator: Coordinator {
     private let presenter: UINavigationController  // 1
     private var allEvents: [EventViewModel] = [] // 2
-    private var eventTableViewController: EventTableViewController? // 3
+    private var eventSearchViewController: EventSearchViewController? // 3
     private let eventService: EventService  // 4
     
-    //    init(presenter: UINavigationController, kanjiStorage: KanjiStorage) {
-    init(presenter: UINavigationController) {
+    init(presenter: UINavigationController)
+    {
         self.presenter = presenter
         self.eventService = EventService()
     }
     
-    func start() {
+    func start()
+    {
+        //promise?
+        showEventSearchViewController(with: eventService)
+    }
+    
+    func showEventSearchViewController(with eventService : EventService)
+    {
         //temp while I put something in place to bring back last search.
         self.eventService.latestEvents( completion: {
             [weak self] events, error in
             
             if let weakSelf = self {
                 weakSelf.allEvents = events
-                weakSelf.eventTableViewController?.events = events
-                weakSelf.eventTableViewController?.tableView.reloadData()
+                weakSelf.eventSearchViewController?.events = events
+                weakSelf.eventSearchViewController?.tableView.reloadData()
             }
         })
         
-        // create init
-        let eventTableViewController = EventSearchViewController(nibName: nil, bundle: nil) // 6
-        eventTableViewController.title = "Events"
-        eventTableViewController.events = allEvents
-        eventTableViewController.delegate = self
+        let eventSearchViewController = EventSearchViewController(nibName: nil, bundle: nil) // 6
+        eventSearchViewController.title = "Events"
+        eventSearchViewController.events = allEvents
+        eventSearchViewController.delegate = self
         
-        presenter.pushViewController(eventTableViewController, animated: true)  // 7
+        presenter.pushViewController(eventSearchViewController, animated: true)  // 7
         
-        self.eventTableViewController = eventTableViewController
+        self.eventSearchViewController = eventSearchViewController
+    }
+    
+    
+    func showEventDetailsViewController(_ model : EventViewModel,
+                                        _ eventService : EventService)
+    {
+        print("eventTableViewControllerDidSelectEvent")
+        
+        let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
+        eventViewController.eventViewModel = model
+        eventViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        eventViewController.delegate = self
+        presenter.pushViewController(eventViewController, animated: true)
     }
 }
 
-protocol EventTableViewControllerDelegate: class {
-    //Returns Array of Events based on Search Term
-    func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping (_ events :[EventViewModel]) -> Void)
-    
-    func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel)
-    
-    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel)
-}
-
-// MARK: - KanjiListViewControllerDelegate
-extension EventTableCoordinator: EventTableViewControllerDelegate {
-    
-    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel) {
-        
-    }
+// MARK: - EventSearchViewControllerDelegate
+extension EventTableCoordinator: EventSearchViewControllerDelegate {
     
     func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping ([EventViewModel]) -> Void) {
         
@@ -72,14 +78,38 @@ extension EventTableCoordinator: EventTableViewControllerDelegate {
     }
     
     func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel) {
-        print("eventTableViewControllerDidSelectEvent")
-        
-        let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
-        eventViewController.eventViewModel = selectedEvent
-        eventViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        presenter.pushViewController(eventViewController, animated: true)
+        showEventDetailsViewController(selectedEvent, eventService)
     }
 }
+
+// MARK: - EventViewModelFavoriteDelegate
+extension EventTableCoordinator : EventViewControllerDelegate {
+    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel){
+        print("test")
+        eventService.updateEvent(selectedEvent)
+        eventSearchViewController?.tableView.reloadData()
+    }
+}
+
+
+
+
+protocol EventViewControllerDelegate: class {
+    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel)
+}
+
+protocol EventTableViewControllerDelegate: class {
+    
+}
+
+
+protocol EventSearchViewControllerDelegate: class {
+    //Returns Array of Events based on Search Term
+    func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping (_ events :[EventViewModel]) -> Void)
+    
+    func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel)
+}
+
 
 //protocol Gettable {
 //    associatedtype Data
