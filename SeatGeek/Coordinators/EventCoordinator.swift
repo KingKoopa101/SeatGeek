@@ -10,10 +10,11 @@ import Foundation
 import UIKit
 
 class EventTableCoordinator: Coordinator {
-    private let presenter: UINavigationController  // 1
-    private var allEvents: [EventViewModel] = [] // 2
-    private var eventSearchViewController: EventSearchViewController? // 3
-    private let eventService: EventService  // 4
+    private let presenter: UINavigationController
+    private var allEvents: [EventViewModel] = []
+    private var eventSearchViewController: EventSearchViewController?
+    private var eventViewController: EventViewController?
+    private let eventService: EventService
     
     init(presenter: UINavigationController)
     {
@@ -29,23 +30,28 @@ class EventTableCoordinator: Coordinator {
     
     func showEventSearchViewController(with eventService : EventService)
     {
-        //temp while I put something in place to bring back last search.
-        self.eventService.latestEvents( completion: {
-            [weak self] events, error in
-            
-            if let weakSelf = self {
-                weakSelf.allEvents = events
-                weakSelf.eventSearchViewController?.events = events
-                weakSelf.eventSearchViewController?.tableView.reloadData()
-            }
-        })
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+           
+            self?.eventService.latestEvents( completion: {
+                [weak self] events, error in
+                
+                DispatchQueue.main.async {
+                    
+                    if let weakSelf = self {
+                        weakSelf.allEvents = events
+                        weakSelf.eventSearchViewController?.events = events
+                        weakSelf.eventSearchViewController?.tableView.reloadData()
+                    }
+                }
+            })
+        }
         
-        let eventSearchViewController = EventSearchViewController(nibName: nil, bundle: nil) // 6
+        let eventSearchViewController = EventSearchViewController(nibName: nil, bundle: nil)
         eventSearchViewController.title = "Events"
         eventSearchViewController.events = allEvents
         eventSearchViewController.delegate = self
         
-        presenter.pushViewController(eventSearchViewController, animated: true)  // 7
+        presenter.pushViewController(eventSearchViewController, animated: true)
         
         self.eventSearchViewController = eventSearchViewController
     }
@@ -60,6 +66,8 @@ class EventTableCoordinator: Coordinator {
         eventViewController.eventViewModel = model
         eventViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         eventViewController.delegate = self
+        self.eventViewController = eventViewController
+        
         presenter.pushViewController(eventViewController, animated: true)
     }
 }
@@ -67,14 +75,27 @@ class EventTableCoordinator: Coordinator {
 // MARK: - EventSearchViewControllerDelegate
 extension EventTableCoordinator: EventSearchViewControllerDelegate {
     
-    func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping ([EventViewModel]) -> Void) {
+    func eventUserSearchedForEvent(_ searchTerm: String) {
         
-        eventService.eventsForSearchTerm(searchTerm, completion: {
-            [weak self] (events, error) in
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             
-            //need error here?
-            completion(events)
-        })
+            self?.eventService.eventsForSearchTerm(searchTerm, completion: {
+                [weak self] (events, error) in
+                DispatchQueue.main.async {
+//                    if (err)
+                    
+                    
+                    if let weakSelf = self,
+                        let eventViewController = weakSelf.eventSearchViewController{
+                        eventViewController.filteredEvents = events
+                        eventViewController.tableView.reloadData()
+                    }
+                }
+                
+                //need error here?
+//                completion(events)
+            })
+        }
     }
     
     func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel) {
@@ -92,35 +113,13 @@ extension EventTableCoordinator : EventViewControllerDelegate {
 }
 
 
-
-
 protocol EventViewControllerDelegate: class {
     func eventMarkedAsFavorite(_ selectedEvent: EventViewModel)
 }
 
-protocol EventTableViewControllerDelegate: class {
-    
-}
-
-
 protocol EventSearchViewControllerDelegate: class {
     //Returns Array of Events based on Search Term
-    func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping (_ events :[EventViewModel]) -> Void)
+    func eventUserSearchedForEvent(_ searchTerm: String)
     
     func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel)
 }
-
-
-//protocol Gettable {
-//    associatedtype Data
-//
-//    func get(completionHandler: Result<Data> -> Void)
-//}
-//
-//struct FoodService {
-//
-//    func get(completionHandler: Result<[Event]> -> Void) {
-//        // make asynchronous API call
-//        // and return appropriate result
-//    }
-//}

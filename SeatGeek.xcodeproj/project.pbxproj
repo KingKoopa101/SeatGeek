@@ -106,9 +106,9 @@
 		F8B8CBCD2229E8F800389D9F /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				F8B8CBD6222AE11100389D9F /* ViewControllers */,
 				F8B8CBC9222794D500389D9F /* Event.swift */,
 				F8B8CBDB222AF73900389D9F /* EventViewModel.swift */,
+				F8B8CBD6222AE11100389D9F /* ViewControllers */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -137,9 +137,9 @@
 		F8B8CBDA222AE94900389D9F /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				F8B8CBC3222788A500389D9F /* Coordinator.swift */,
 				F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */,
 				F8B8CBD0222A3CC400389D9F /* EventCoordinator.swift */,
-				F8B8CBC3222788A500389D9F /* Coordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -155,8 +155,8 @@
 		F8B8CBE5222C45EA00389D9F /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
 				F8B8CBE6222C462B00389D9F /* NetworkService.swift */,
+				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

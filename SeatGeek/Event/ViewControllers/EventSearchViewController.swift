@@ -97,13 +97,6 @@ extension EventSearchViewController: UISearchResultsUpdating {
 //            return
 //        }
         
-        delegate?.eventUserSearchedForEvent(searchString, completion: {
-            [weak self] events in
-            
-            if let weakSelf = self {
-                weakSelf.filteredEvents = events
-                weakSelf.tableView.reloadData()
-            }
-        })
+        delegate?.eventUserSearchedForEvent(searchString)
     }
 }
