@@ -22,7 +22,8 @@ class EventTableViewCell : UITableViewCell {
         self.eventDateLabel.text = eventModel.dateDisplayString()
         self.eventLocationLabel.text = eventModel.venueLocationDisplayString()
         if let imageURL = URL(string: eventModel.venueImageURLString()){
-            self.eventImageView.kf.setImage(with: imageURL)
+           // self.eventImageView.kf.setImage(with: imageURL)
+            self.eventImageView.kf.setImage(with: imageURL, options: [.transition(.fade(0.2))])
         }
         
         if (eventModel.isFavoriteEvent()){
