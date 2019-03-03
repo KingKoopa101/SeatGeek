@@ -24,7 +24,11 @@ class EventService {
     //
     init() {
         //need to load from cache.
-        allFavoritesFromCache = [:]
+        if let saved = UserDefaults.standard.value(forKey: "FavoriteEvents") as? [String: String]{
+            allFavoritesFromCache = saved
+        }else{
+            allFavoritesFromCache = [:]
+        }
     }
     
     func updateEvent(_ model:EventViewModel){
@@ -34,6 +38,7 @@ class EventService {
         
         allFavoritesFromCache[idString] = ""
         
+        UserDefaults.standard.set(allFavoritesFromCache, forKey: "FavoriteEvents")
         print("test")
     }
     
