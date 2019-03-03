@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class EventTableViewCell : UITableViewCell {
     @IBOutlet weak var eventImageView: UIImageView!
@@ -19,8 +20,8 @@ class EventTableViewCell : UITableViewCell {
         self.eventTitleLabel.text = eventModel.shortTitleDisplayString()
         self.eventDateLabel.text = eventModel.dateDisplayString()
         self.eventLocationLabel.text = eventModel.venueLocationDisplayString()
-        if (eventImageView.image == nil){
-            self.eventImageView.download(from: eventModel.venueImageURLString())
+        if let imageURL = URL(string: eventModel.venueImageURLString()){
+            self.eventImageView.kf.setImage(with: imageURL)
         }
     }
 }

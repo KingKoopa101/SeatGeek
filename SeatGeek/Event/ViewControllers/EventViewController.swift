@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class EventViewController : UIViewController {
     
@@ -19,33 +20,45 @@ class EventViewController : UIViewController {
     var eventViewModel : EventViewModel?
     
     override func viewDidLoad() {
-        self.title = eventViewModel?.titleDisplayString()
         
+        setupUI()
+        
+        setupDataFromEvent()
+    }
+    
+    func setupUI() {
+        
+        //GO further.
+        let myView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
+        myView.eventTitleLabel.text = eventViewModel?.titleDisplayString()
+        myView.frame.size = CGSize(width: 100, height: 300)
+        
+        self.navigationItem.titleView = myView
+        
+        let favoriteButton = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(action(_:)))
+        
+        navigationItem.rightBarButtonItem = favoriteButton
+        
+        
+    }
+    
+    func setupDataFromEvent() {
+
         eventLocationLabel.text = eventViewModel?.venueLocationDisplayString()
         eventDateLabel.text = eventViewModel?.dateDisplayString()
         
-        if let imageURL = eventViewModel?.venueImageURLString(){
-            eventImageView.download(from: imageURL)
+        //placeholder for error needed.
+        if let imageURLString = eventViewModel?.venueImageURLString(),
+            let imageURL = URL(string: imageURLString){
+            self.eventImageView.kf.setImage(with: imageURL)
         }
     }
     
-//    private var event : Event
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        self.event = Event(name: "test")
-//        super.init(coder: aDecoder)
-//    }
-//
-//    convenience init(_ event:Event) {
-//        self.event = event
-////        super.init()
-//    }
-    
-    //    convenience override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-    //        super.init(nibName: nil, bundle: nil)
-    //    }
-    //
-    //    convenience init() {
-    //        self.init(nibName:nil, bundle:nil)
-    //    }
+    @IBAction func action(_ sender: AnyObject) {
+//        print("CustomRightViewController IBAction invoked!")
+        eventViewModel?.selectedAsFavorite(true)
+    }
 }

@@ -21,6 +21,13 @@
 		F8B8CBD5222ADAA700389D9F /* EventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBD4222ADAA700389D9F /* EventViewController.xib */; };
 		F8B8CBD9222AE7B100389D9F /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBD8222AE7B100389D9F /* EventTableViewCell.swift */; };
 		F8B8CBDC222AF73900389D9F /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBDB222AF73900389D9F /* EventViewModel.swift */; };
+		F8B8CBDF222B976B00389D9F /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8B8CBDE222B976B00389D9F /* Kingfisher.framework */; };
+		F8B8CBE2222C3F1D00389D9F /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBE1222C3F1D00389D9F /* FavoriteButton.swift */; };
+		F8B8CBE4222C42B900389D9F /* EventSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBE3222C42B900389D9F /* EventSearchViewController.swift */; };
+		F8B8CBE7222C462B00389D9F /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBE6222C462B00389D9F /* NetworkService.swift */; };
+		F8B8CBE9222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */; };
+		F8B8CBEB222C4DF500389D9F /* EventViewControllerCustomTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */; };
+		F8B8CBED222C62B500389D9F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBEC222C62B500389D9F /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +47,13 @@
 		F8B8CBD4222ADAA700389D9F /* EventViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventViewController.xib; sourceTree = "<group>"; };
 		F8B8CBD8222AE7B100389D9F /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		F8B8CBDB222AF73900389D9F /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		F8B8CBDE222B976B00389D9F /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		F8B8CBE1222C3F1D00389D9F /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
+		F8B8CBE3222C42B900389D9F /* EventSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSearchViewController.swift; sourceTree = "<group>"; };
+		F8B8CBE6222C462B00389D9F /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventViewControllerCustomTitleView.xib; sourceTree = "<group>"; };
+		F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewControllerCustomTitleView.swift; sourceTree = "<group>"; };
+		F8B8CBEC222C62B500389D9F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8B8CBDF222B976B00389D9F /* Kingfisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +73,7 @@
 			children = (
 				F8B8CBB02227887900389D9F /* SeatGeek */,
 				F8B8CBAF2227887900389D9F /* Products */,
+				F8B8CBDD222B976B00389D9F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,8 +92,13 @@
 				F8B8CBB12227887900389D9F /* AppDelegate.swift */,
 				F8B8CBDA222AE94900389D9F /* Coordinators */,
 				F8B8CBCD2229E8F800389D9F /* Event */,
+				F8B8CBE5222C45EA00389D9F /* Services */,
 				F8B8CBB82227887A00389D9F /* Assets.xcassets */,
 				F8B8CBBD2227887A00389D9F /* Info.plist */,
+				F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */,
+				F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */,
+				F8B8CBE1222C3F1D00389D9F /* FavoriteButton.swift */,
+				F8B8CBEC222C62B500389D9F /* Extensions.swift */,
 			);
 			path = SeatGeek;
 			sourceTree = "<group>";
@@ -85,10 +106,9 @@
 		F8B8CBCD2229E8F800389D9F /* Event */ = {
 			isa = PBXGroup;
 			children = (
-				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
+				F8B8CBD6222AE11100389D9F /* ViewControllers */,
 				F8B8CBC9222794D500389D9F /* Event.swift */,
 				F8B8CBDB222AF73900389D9F /* EventViewModel.swift */,
-				F8B8CBD6222AE11100389D9F /* ViewControllers */,
 			);
 			path = Event;
 			sourceTree = "<group>";
@@ -96,8 +116,9 @@
 		F8B8CBD6222AE11100389D9F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F8B8CBD2222AD9EC00389D9F /* EventViewController.swift */,
 				F8B8CBC7222794A800389D9F /* EventTableViewController.swift */,
+				F8B8CBE3222C42B900389D9F /* EventSearchViewController.swift */,
+				F8B8CBD2222AD9EC00389D9F /* EventViewController.swift */,
 				F8B8CBD4222ADAA700389D9F /* EventViewController.xib */,
 				F8B8CBD7222AE79B00389D9F /* EventTableViewCell */,
 			);
@@ -123,6 +144,23 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
+		F8B8CBDD222B976B00389D9F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F8B8CBDE222B976B00389D9F /* Kingfisher.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F8B8CBE5222C45EA00389D9F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
+				F8B8CBE6222C462B00389D9F /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -133,6 +171,7 @@
 				F8B8CBAA2227887900389D9F /* Sources */,
 				F8B8CBAB2227887900389D9F /* Frameworks */,
 				F8B8CBAC2227887900389D9F /* Resources */,
+				F8B8CBE0222B978F00389D9F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -183,6 +222,7 @@
 			files = (
 				F8B8CBCF222A2BE200389D9F /* EventTableViewCell.xib in Resources */,
 				F8B8CBD5222ADAA700389D9F /* EventViewController.xib in Resources */,
+				F8B8CBE9222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib in Resources */,
 				F8B8CBBC2227887A00389D9F /* LaunchScreen.storyboard in Resources */,
 				F8B8CBB92227887A00389D9F /* Assets.xcassets in Resources */,
 			);
@@ -190,12 +230,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		F8B8CBE0222B978F00389D9F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F8B8CBAA2227887900389D9F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8B8CBEB222C4DF500389D9F /* EventViewControllerCustomTitleView.swift in Sources */,
 				F8B8CBD9222AE7B100389D9F /* EventTableViewCell.swift in Sources */,
+				F8B8CBE4222C42B900389D9F /* EventSearchViewController.swift in Sources */,
 				F8B8CBCC2228C7BE00389D9F /* EventService.swift in Sources */,
 				F8B8CBB22227887900389D9F /* AppDelegate.swift in Sources */,
 				F8B8CBC4222788A500389D9F /* Coordinator.swift in Sources */,
@@ -203,7 +266,10 @@
 				F8B8CBDC222AF73900389D9F /* EventViewModel.swift in Sources */,
 				F8B8CBC8222794A800389D9F /* EventTableViewController.swift in Sources */,
 				F8B8CBD3222AD9EC00389D9F /* EventViewController.swift in Sources */,
+				F8B8CBED222C62B500389D9F /* Extensions.swift in Sources */,
 				F8B8CBD1222A3CC400389D9F /* EventCoordinator.swift in Sources */,
+				F8B8CBE2222C3F1D00389D9F /* FavoriteButton.swift in Sources */,
+				F8B8CBE7222C462B00389D9F /* NetworkService.swift in Sources */,
 				F8B8CBCA222794D500389D9F /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +410,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RS54A6QC9G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SeatGeek/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -362,6 +432,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RS54A6QC9G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SeatGeek/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

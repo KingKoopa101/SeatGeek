@@ -22,16 +22,15 @@ class EventTableCoordinator: Coordinator {
     }
     
     func start() {
-        //        //temp while I put something in place to bring back last search.
+        //temp while I put something in place to bring back last search.
         self.eventService.latestEvents( completion: {
-            [weak self] events in
+            [weak self] events, error in
             
             if let weakSelf = self {
                 weakSelf.allEvents = events
                 weakSelf.eventTableViewController?.events = events
                 weakSelf.eventTableViewController?.tableView.reloadData()
             }
-            
         })
         
         // create init
@@ -46,21 +45,26 @@ class EventTableCoordinator: Coordinator {
     }
 }
 
-
 protocol EventTableViewControllerDelegate: class {
     //Returns Array of Events based on Search Term
     func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping (_ events :[EventViewModel]) -> Void)
     
     func eventTableViewControllerDidSelectEvent(_ selectedEvent: EventViewModel)
+    
+    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel)
 }
 
 // MARK: - KanjiListViewControllerDelegate
 extension EventTableCoordinator: EventTableViewControllerDelegate {
     
+    func eventMarkedAsFavorite(_ selectedEvent: EventViewModel) {
+        
+    }
+    
     func eventUserSearchedForEvent(_ searchTerm: String, completion: @escaping ([EventViewModel]) -> Void) {
         
         eventService.eventsForSearchTerm(searchTerm, completion: {
-            [weak self] (events) in
+            [weak self] (events, error) in
             
             //need error here?
             completion(events)
@@ -72,6 +76,7 @@ extension EventTableCoordinator: EventTableViewControllerDelegate {
         
         let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
         eventViewController.eventViewModel = selectedEvent
+        eventViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         presenter.pushViewController(eventViewController, animated: true)
     }
 }

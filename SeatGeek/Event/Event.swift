@@ -19,6 +19,7 @@ struct Event: Decodable{
     
     var title: String
     var short_title: String
+    var id: Int
     var datetime_local: String
     var date_tbd: Bool
     var venue: Venue?

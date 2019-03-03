@@ -44,13 +44,14 @@ class EventViewModel {
         return dateFormatter.string(from: date)
     }
     
+    func selectedAsFavorite(_ selected : Bool){
+        print("Event Favorited: \(event.title) :\(selected)")
+    }
+    
     
     //Venue
     
     func venueLocationDisplayString () -> String {
-//        if hasLocationString() {
-//            return "\(self.event.venue!.city, self.event.venue!.state)"
-//        }
         
         if let city = self.event.venue?.city,
             let state = self.event.venue?.state{
