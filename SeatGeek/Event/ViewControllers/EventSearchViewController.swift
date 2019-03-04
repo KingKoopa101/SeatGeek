@@ -25,7 +25,6 @@ class EventSearchViewController: EventTableViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         navigationItem.hidesSearchBarWhenScrolling = false
-        
     }
     
     // MARK: - Private Helpers instance methods

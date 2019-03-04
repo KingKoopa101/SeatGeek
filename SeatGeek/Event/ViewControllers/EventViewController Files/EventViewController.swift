@@ -20,9 +20,11 @@ class EventViewController : UIViewController {
     var eventViewModel : EventViewModel?
     weak var delegate: EventViewControllerDelegate?
     
-    override func viewDidLoad() {
-        
+    override func viewWillAppear(_ animated: Bool) {
         setupUI()
+    }
+    
+    override func viewDidLoad() {
         setupDataFromEvent()
     }
     
@@ -31,9 +33,9 @@ class EventViewController : UIViewController {
         //GO further.
         let myView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
         myView.eventTitleLabel.text = eventViewModel?.titleDisplayString()
-        myView.frame.size = CGSize(width: 100, height: 300)
         
         self.navigationItem.titleView = myView
+        self.navigationItem.prompt = " "
         
         setupButton()
     }
@@ -69,11 +71,9 @@ class EventViewController : UIViewController {
         }
     }
     
-    @IBAction func action(_ sender: UIButton) {
+    @IBAction func action(_ sender: UIBarButtonItem) {
         if let isFavorite = eventViewModel?.isFavoriteEvent(){
-            sender.isSelected = isFavorite
             
-            //WIP
             eventViewModel?.selectedAsFavorite(!isFavorite)
             self.delegate?.eventMarkedAsFavorite(eventViewModel!)
             

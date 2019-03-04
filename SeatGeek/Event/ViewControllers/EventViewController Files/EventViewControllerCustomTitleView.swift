@@ -11,4 +11,8 @@ import UIKit
 
 class EventViewControllerCustomTitleView : UIView{
     @IBOutlet weak var eventTitleLabel: UILabel!
+    
+    override var intrinsicContentSize: CGSize {
+        return UIView.layoutFittingExpandedSize
+    }
 }
