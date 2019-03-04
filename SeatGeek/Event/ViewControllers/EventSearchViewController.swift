@@ -92,11 +92,12 @@ extension EventSearchViewController: UISearchResultsUpdating {
             return
         }
         
-//        if searchString == ""{
-//            //First time tapped.
-//            return
-//        }
-        
-        delegate?.eventUserSearchedForEvent(searchString)
+        //Add Delay
+        NSObject.cancelPreviousPerformRequests(withTarget: self)
+        self.perform(#selector(EventSearchViewController.searchForText(_:)), with: searchString, afterDelay: 0.5)
+    }
+    
+    @objc func searchForText(_ searchTerm : String){
+        delegate?.eventUserSearchedForEvent(searchTerm)
     }
 }
