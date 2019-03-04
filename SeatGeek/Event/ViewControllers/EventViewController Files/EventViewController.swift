@@ -16,6 +16,8 @@ class EventViewController : UIViewController {
     @IBOutlet weak var eventLocationLabel: UILabel!
     @IBOutlet weak var eventDateLabel: UILabel!
     
+    var favoriteBarButtonItem : UIBarButtonItem?
+    
     //how can we initialize with this value
     var eventViewModel : EventViewModel?
     var eventViewControllerCustomTitleView : EventViewControllerCustomTitleView?
@@ -61,6 +63,7 @@ class EventViewController : UIViewController {
             let eventTitleView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
             
             eventTitleView.eventTitleLabel.text = eventModel.titleDisplayString()
+            eventTitleView.eventTitleLabel.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 150)
             self.eventViewControllerCustomTitleView = eventTitleView
             self.navigationItem.titleView = eventViewControllerCustomTitleView
         }
@@ -69,21 +72,25 @@ class EventViewController : UIViewController {
     }
     
     func setupButton () {
-        let favoriteButton : UIBarButtonItem
         
-        if(eventViewModel?.isFavoriteEvent() ?? false){
+        guard let eventModel = eventViewModel else {
+            print("Setting up favorite button without EventModel")
+            return
+        }
+        
+        var favoriteButton : UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
+                                                               style: .plain,
+                                                               target: self,
+                                                               action: #selector(action(_:)))
+        
+        if(eventModel.isFavoriteEvent()){
             favoriteButton = UIBarButtonItem(image: UIImage(named: "Heart"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(action(_:)))
-        }else{
-            favoriteButton = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
                                              style: .plain,
                                              target: self,
                                              action: #selector(action(_:)))
         }
         
-        
+        self.favoriteBarButtonItem = favoriteButton
         navigationItem.rightBarButtonItem = favoriteButton
     }
     
@@ -104,11 +111,28 @@ class EventViewController : UIViewController {
     
     @IBAction func action(_ sender: UIBarButtonItem) {
         if let isFavorite = eventViewModel?.isFavoriteEvent(){
+            //We can animate from here, will probably need to embed UIbarbutton in bar button item.
+            if(!isFavorite){
+                let favoriteButton = UIBarButtonItem(image: UIImage(named: "Heart"),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(action(_:)))
+                navigationItem.rightBarButtonItem = favoriteButton
+            }else{
+                 let favoriteButton : UIBarButtonItem = UIBarButtonItem(image: UIImage(named: "EmptyHeart"),
+                                                                       style: .plain,
+                                                                       target: self,
+                                                                       action: #selector(action(_:)))
+                navigationItem.rightBarButtonItem = favoriteButton
+            }
+            
+            
             
             eventViewModel?.selectedAsFavorite(!isFavorite)
             self.delegate?.eventMarkedAsFavorite(eventViewModel!)
             
-            setupButton()
+            //setupButton()
+            
         }
     }
 }
