@@ -11,17 +11,13 @@ import Foundation
 // Provides events from Network Service
 class EventService {
     
-    private var allFavoritesFromCache: [String:String]
     private let baseURL : String = URLs.EventBaseUrl
+    private let favoriteEventService: FavoriteEventService
     
     //
-    init() {
-        //need to load from cache.
-        if let saved = UserDefaults.standard.value(forKey: "FavoriteEvents") as? [String: String]{
-            allFavoritesFromCache = saved
-        }else{
-            allFavoritesFromCache = [:]
-        }
+    init(favoriteEventService: FavoriteEventService) {
+        
+        self.favoriteEventService = favoriteEventService
     }
     
     // MARK: - Get Event
@@ -50,16 +46,7 @@ class EventService {
     
     func updateEvent(_ model:EventViewModel){
         
-        let id = String(model.eventId)
-        
-        //this needs updating
-        if (model.isFavoriteEvent()){
-            allFavoritesFromCache[id] = ""
-        }else{
-            allFavoritesFromCache.removeValue(forKey: id)
-        }
-        
-        UserDefaults.standard.set(allFavoritesFromCache, forKey: "FavoriteEvents")
+        favoriteEventService.updateFavorite(eventId: model.eventId)
     }
     
     // MARK: - Request Event Helpers
@@ -94,11 +81,9 @@ class EventService {
                                         for event in jsonData.events{
                                             let newModel : EventViewModel
                                             
-                                            if (strongSelf.allFavoritesFromCache[String(event.id)] != nil){
-                                                newModel = EventViewModel(event: event, isFavorite: true)
-                                            }else{
-                                                newModel = EventViewModel(event: event, isFavorite: false)
-                                            }
+                                            let isFavorite = strongSelf.favoriteEventService.isFavorite(eventId:event.id)
+                                            newModel = EventViewModel(event: event,
+                                                                      isFavorite: isFavorite)
                                             
                                             tempArray.append(newModel)
                                         }

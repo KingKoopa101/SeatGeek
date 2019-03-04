@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F8AA637F222CFCAE0025A933 /* FavoriteEventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8AA637E222CFCAE0025A933 /* FavoriteEventService.swift */; };
 		F8B8CBB22227887900389D9F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBB12227887900389D9F /* AppDelegate.swift */; };
 		F8B8CBB92227887A00389D9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBB82227887A00389D9F /* Assets.xcassets */; };
 		F8B8CBBC2227887A00389D9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBBA2227887A00389D9F /* LaunchScreen.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F8AA637E222CFCAE0025A933 /* FavoriteEventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEventService.swift; sourceTree = "<group>"; };
 		F8B8CBAE2227887900389D9F /* SeatGeek.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeatGeek.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8B8CBB12227887900389D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8B8CBB82227887A00389D9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				F8B8CBE6222C462B00389D9F /* NetworkService.swift */,
 				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
+				F8AA637E222CFCAE0025A933 /* FavoriteEventService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				F8B8CBC4222788A500389D9F /* Coordinator.swift in Sources */,
 				F8B8CBC6222789B000389D9F /* ApplicationCoordinator.swift in Sources */,
 				F8B8CBDC222AF73900389D9F /* EventViewModel.swift in Sources */,
+				F8AA637F222CFCAE0025A933 /* FavoriteEventService.swift in Sources */,
 				F8B8CBC8222794A800389D9F /* EventTableViewController.swift in Sources */,
 				F8B8CBD3222AD9EC00389D9F /* EventViewController.swift in Sources */,
 				F8B8CBED222C62B500389D9F /* Extensions.swift in Sources */,

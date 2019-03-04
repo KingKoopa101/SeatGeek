@@ -9,17 +9,17 @@
 import Foundation
 import UIKit
 
-class EventTableCoordinator: Coordinator {
+class EventCoordinator: Coordinator {
+    
     private let presenter: UINavigationController
-    private var allEvents: [EventViewModel] = []
+    private let eventService: EventService
     private var eventSearchViewController: EventSearchViewController?
     private var eventViewController: EventViewController?
-    private let eventService: EventService
     
-    init(presenter: UINavigationController)
+    init(presenter: UINavigationController, eventService: EventService)
     {
         self.presenter = presenter
-        self.eventService = EventService()
+        self.eventService = eventService
     }
     
     func start()
@@ -45,7 +45,6 @@ class EventTableCoordinator: Coordinator {
                                                              message: realError.localizedDescription)
                         }
                         
-                        weakSelf.allEvents = events
                         searchViewController.events = events
                         searchViewController.tableView.reloadData()
                     }
@@ -55,7 +54,7 @@ class EventTableCoordinator: Coordinator {
         
         let eventSearchViewController = EventSearchViewController(nibName: nil, bundle: nil)
         eventSearchViewController.title = "Events"
-        eventSearchViewController.events = allEvents
+        eventSearchViewController.events = []
         eventSearchViewController.delegate = self
         
         presenter.pushViewController(eventSearchViewController, animated: true)
@@ -71,7 +70,6 @@ class EventTableCoordinator: Coordinator {
         
         let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
         eventViewController.eventViewModel = model
-        eventViewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         eventViewController.delegate = self
         self.eventViewController = eventViewController
         
@@ -80,7 +78,7 @@ class EventTableCoordinator: Coordinator {
 }
 
 // MARK: - EventSearchViewControllerDelegate
-extension EventTableCoordinator: EventSearchViewControllerDelegate {
+extension EventCoordinator: EventSearchViewControllerDelegate {
     
     func eventUserSearchedForEvent(_ searchTerm: String) {
         
@@ -112,7 +110,7 @@ extension EventTableCoordinator: EventSearchViewControllerDelegate {
 }
 
 // MARK: - EventViewModelFavoriteDelegate
-extension EventTableCoordinator : EventViewControllerDelegate {
+extension EventCoordinator : EventViewControllerDelegate {
     func eventMarkedAsFavorite(_ selectedEvent: EventViewModel){
         eventService.updateEvent(selectedEvent)
         eventSearchViewController?.tableView.reloadData()

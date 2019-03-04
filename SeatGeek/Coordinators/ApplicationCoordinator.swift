@@ -10,22 +10,23 @@ import Foundation
 import UIKit
 
 class ApplicationCoordinator: Coordinator {
-    let eventService: EventService //  1 EventService will provides asynch ev
-    let window: UIWindow  // 2
-    let rootViewController: UINavigationController  // 3
-    let eventTableCoordinator: EventTableCoordinator
+    let eventService: EventService
+    let window: UIWindow
+    let rootViewController: UINavigationController
+    let eventTableCoordinator: EventCoordinator
     
-    init(window: UIWindow) { //4
+    init(window: UIWindow) {
         self.window = window
-        eventService = EventService()
+        eventService = EventService(favoriteEventService: FavoriteEventService())
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.largeTitleDisplayMode = .always
         
-        eventTableCoordinator = EventTableCoordinator(presenter: rootViewController)
-                                                          //kanjiStorage: kanjiStorage)
+        eventTableCoordinator = EventCoordinator(presenter: rootViewController,
+                                                 eventService: eventService)
     }
     
-    func start() {  // 6
+    func start() {
         window.rootViewController = rootViewController
         eventTableCoordinator.start()
         window.makeKeyAndVisible()
