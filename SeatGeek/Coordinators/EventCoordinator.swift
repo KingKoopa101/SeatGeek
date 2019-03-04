@@ -66,7 +66,7 @@ class EventCoordinator: Coordinator {
     func showEventDetailsViewController(_ model : EventViewModel,
                                         _ eventService : EventService)
     {
-        print("eventTableViewControllerDidSelectEvent")
+        print("👇 eventDetailsSelected")
         
         let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
         eventViewController.eventViewModel = model
@@ -74,14 +74,8 @@ class EventCoordinator: Coordinator {
         
         self.eventViewController = eventViewController
         
-//        presenter.pushViewController(eventViewController, animated: true)
-        
+        //modally present event details
         let navigation = UINavigationController(rootViewController: eventViewController)
-
-        navigation.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
-        
-//        navigation.navigationItem.setHidesBackButton(false, animated: true)
-//
         presenter.present(navigation, animated: true, completion:nil)
     }
 }
@@ -98,15 +92,15 @@ extension EventCoordinator: EventSearchViewControllerDelegate {
                 DispatchQueue.main.async {
                     
                     if let weakSelf = self,
-                        let eventViewController = weakSelf.eventSearchViewController{
+                        let eventSearchViewController = weakSelf.eventSearchViewController{
                         
                         if let realError = error {
-                            eventViewController.presentAlert(withTitle: "Error",
+                            eventSearchViewController.presentAlert(withTitle: "Error",
                                                              message: realError.localizedDescription)
                         }
                         
-                        eventViewController.filteredEvents = events
-                        eventViewController.tableView.reloadData()
+                        eventSearchViewController.filteredEvents = events
+                        eventSearchViewController.tableView.reloadData()
                     }
                 }
             })
