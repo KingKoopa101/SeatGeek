@@ -9,14 +9,18 @@
 import Foundation
 import UIKit
 
-class EventSearchViewController: EventTableViewController {
+class EventSearchViewController: UITableViewController {
     
     let searchController = UISearchController(searchResultsController: nil)
     weak var delegate: EventSearchViewControllerDelegate?
+    var events : [EventViewModel] = []
     var filteredEvents = [EventViewModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UINib(nibName: "EventTableViewCell", bundle: nil),
+                           forCellReuseIdentifier: "EventTableViewCell")
         
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
@@ -91,9 +95,14 @@ extension EventSearchViewController: UISearchResultsUpdating {
             return
         }
         
+        //trim whitespaces
+        let trimmedSearchString = searchString.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         //Add Delay
         NSObject.cancelPreviousPerformRequests(withTarget: self)
-        self.perform(#selector(EventSearchViewController.searchForText(_:)), with: searchString, afterDelay: 0.5)
+        self.perform(#selector(EventSearchViewController.searchForText(_:)),
+                     with: trimmedSearchString,
+                     afterDelay: 0.5)
     }
     
     @objc func searchForText(_ searchTerm : String){

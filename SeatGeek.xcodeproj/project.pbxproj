@@ -13,7 +13,6 @@
 		F8B8CBBC2227887A00389D9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBBA2227887A00389D9F /* LaunchScreen.storyboard */; };
 		F8B8CBC4222788A500389D9F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBC3222788A500389D9F /* Coordinator.swift */; };
 		F8B8CBC6222789B000389D9F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */; };
-		F8B8CBC8222794A800389D9F /* EventTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBC7222794A800389D9F /* EventTableViewController.swift */; };
 		F8B8CBCA222794D500389D9F /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBC9222794D500389D9F /* Event.swift */; };
 		F8B8CBCC2228C7BE00389D9F /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8B8CBCB2228C7BE00389D9F /* EventService.swift */; };
 		F8B8CBCF222A2BE200389D9F /* EventTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8B8CBCE222A2BE200389D9F /* EventTableViewCell.xib */; };
@@ -40,7 +39,6 @@
 		F8B8CBBD2227887A00389D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8B8CBC3222788A500389D9F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
-		F8B8CBC7222794A800389D9F /* EventTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewController.swift; sourceTree = "<group>"; };
 		F8B8CBC9222794D500389D9F /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		F8B8CBCB2228C7BE00389D9F /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		F8B8CBCE222A2BE200389D9F /* EventTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventTableViewCell.xib; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 		F8B8CBD6222AE11100389D9F /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				F8B8CBC7222794A800389D9F /* EventTableViewController.swift */,
 				F8B8CBE3222C42B900389D9F /* EventSearchViewController.swift */,
 				F8B8CBEE222C9E1700389D9F /* EventViewController Files */,
 				F8B8CBD7222AE79B00389D9F /* EventTableViewCell */,
@@ -276,7 +273,6 @@
 				F8B8CBC6222789B000389D9F /* ApplicationCoordinator.swift in Sources */,
 				F8B8CBDC222AF73900389D9F /* EventViewModel.swift in Sources */,
 				F8AA637F222CFCAE0025A933 /* FavoriteEventService.swift in Sources */,
-				F8B8CBC8222794A800389D9F /* EventTableViewController.swift in Sources */,
 				F8B8CBD3222AD9EC00389D9F /* EventViewController.swift in Sources */,
 				F8B8CBED222C62B500389D9F /* Extensions.swift in Sources */,
 				F8B8CBD1222A3CC400389D9F /* EventCoordinator.swift in Sources */,
