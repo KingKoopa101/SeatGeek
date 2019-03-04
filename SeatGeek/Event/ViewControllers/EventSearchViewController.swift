@@ -21,6 +21,7 @@ class EventSearchViewController: UITableViewController {
         
         tableView.register(UINib(nibName: "EventTableViewCell", bundle: nil),
                            forCellReuseIdentifier: "EventTableViewCell")
+        tableView.estimatedRowHeight = 160
         
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
@@ -78,6 +79,10 @@ class EventSearchViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedEvent: EventViewModel = getEvent(for: indexPath)
         delegate?.eventTableViewControllerDidSelectEvent(selectedEvent)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
 
