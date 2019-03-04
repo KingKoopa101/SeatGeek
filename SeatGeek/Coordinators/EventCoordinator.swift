@@ -37,10 +37,12 @@ class EventTableCoordinator: Coordinator {
                 
                 DispatchQueue.main.async {
                     
-                    if let weakSelf = self {
+                    if let weakSelf = self,
+                        let searchViewController = weakSelf.eventSearchViewController{
+                        
                         weakSelf.allEvents = events
-                        weakSelf.eventSearchViewController?.events = events
-                        weakSelf.eventSearchViewController?.tableView.reloadData()
+                        searchViewController.events = events
+                        searchViewController.tableView.reloadData()
                     }
                 }
             })
@@ -106,7 +108,6 @@ extension EventTableCoordinator: EventSearchViewControllerDelegate {
 // MARK: - EventViewModelFavoriteDelegate
 extension EventTableCoordinator : EventViewControllerDelegate {
     func eventMarkedAsFavorite(_ selectedEvent: EventViewModel){
-        print("test")
         eventService.updateEvent(selectedEvent)
         eventSearchViewController?.tableView.reloadData()
     }
