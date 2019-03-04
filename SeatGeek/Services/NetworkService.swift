@@ -31,19 +31,21 @@ enum APIPath: String {
 
 class NetworkService {
     
-    func baseURLComponents(path : APIPath) -> URLComponents{
+    func baseURLComponents(path : APIPath, size: Int) -> URLComponents{
         var urlComponents = URLComponents()
         urlComponents.scheme = URLs.scheme
         urlComponents.host = URLs.host
         urlComponents.path = path.rawValue
         let apiKeyQuery = URLQueryItem(name: "client_id", value: URLs.api_key)
-        urlComponents.queryItems = [apiKeyQuery]
+        //should pull this out.
+        let pageSizeQuery = URLQueryItem(name: "per_page", value: String(size))
+        urlComponents.queryItems = [apiKeyQuery, pageSizeQuery]
         
         return urlComponents
     }
     
-    func baseURLComponents(path : APIPath, searchTerm : String) -> URLComponents{
-        var urlComponents = baseURLComponents(path: path)
+    func baseURLComponents(path : APIPath, searchTerm : String, size: Int) -> URLComponents{
+        var urlComponents = baseURLComponents(path: path, size: size)
         urlComponents.queryItems?.append(URLQueryItem(name: "q",
                                                       value: searchTerm.replacingOccurrences(of: " ", with: "+")))
         

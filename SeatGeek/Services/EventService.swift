@@ -27,7 +27,9 @@ class EventService {
     func eventsForSearchTerm(_ searchTerm : String,
                              completion: @escaping (_ events : [EventViewModel], _ error : Error?) -> Void) {
         
-        let urlComponents = networkService.baseURLComponents(path: .events, searchTerm: searchTerm)
+        let urlComponents = networkService.baseURLComponents(path: .events,
+                                                             searchTerm: searchTerm,
+                                                             size: 25)
         print("Searching for: \(searchTerm)")
         
         self.requestEvents(for:urlComponents, completion: completion)
@@ -36,7 +38,7 @@ class EventService {
     func latestEvents(completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void) {
         print("🚀 Loading latest events")
         
-        let urlComponents = networkService.baseURLComponents(path: .events)
+        let urlComponents = networkService.baseURLComponents(path: .events, size: 50)
         
         self.requestEvents(for:urlComponents, completion: completion)
     }
