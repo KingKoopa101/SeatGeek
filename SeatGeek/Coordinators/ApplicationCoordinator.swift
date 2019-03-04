@@ -17,7 +17,8 @@ class ApplicationCoordinator: Coordinator {
     
     init(window: UIWindow) {
         self.window = window
-        eventService = EventService(favoriteEventService: FavoriteEventService())
+        eventService = EventService(networkService: NetworkService(),
+                                    favoriteEventService: FavoriteEventService())
         rootViewController = UINavigationController()
         rootViewController.navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.largeTitleDisplayMode = .always

@@ -11,35 +11,34 @@ import Foundation
 // Provides events from Network Service
 class EventService {
     
-    private let baseURL : String = URLs.EventBaseUrl
+    private let networkService: NetworkService
     private let favoriteEventService: FavoriteEventService
     
     //
-    init(favoriteEventService: FavoriteEventService) {
+    init(networkService: NetworkService,
+         favoriteEventService: FavoriteEventService) {
         
+        self.networkService = networkService
         self.favoriteEventService = favoriteEventService
     }
     
     // MARK: - Get Event
     
     func eventsForSearchTerm(_ searchTerm : String,
-                             completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void) {
+                             completion: @escaping (_ events : [EventViewModel], _ error : Error?) -> Void) {
         
-        let encodedSearchTerm = self.encodeSearchTerm(searchTerm)
-        let searchURL = baseURL + "&q=" + encodedSearchTerm
-        
+        let urlComponents = networkService.baseURLComponents(path: .events, searchTerm: searchTerm)
         print("Searching for: \(searchTerm)")
         
-        self.requestEvents(for: searchURL, completion: completion)
+        self.requestEvents(for:urlComponents, completion: completion)
     }
     
     func latestEvents(completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void) {
+        print("🚀 Loading latest events")
         
-        let latestEventURL = baseURL + "&per_page=100"
+        let urlComponents = networkService.baseURLComponents(path: .events)
         
-        print("🚀 Loading initial events")
-        
-        self.requestEvents(for: latestEventURL, completion: completion)
+        self.requestEvents(for:urlComponents, completion: completion)
     }
     
     // MARK: - Update Event
@@ -51,17 +50,17 @@ class EventService {
     
     // MARK: - Request Event Helpers
     
-    func requestEvents(for URLString: String, completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void){
+    func requestEvents(for components: URLComponents, completion: @escaping (_ events :[EventViewModel], _ error: Error?) -> Void){
         
-        guard let url = URL(string: URLString) else{
+        guard let url = components.url else{
             //log
-            print("🚨 Network Service Bad URL: \(link)")
+            print("🚨 Network Service Bad URLCompenents")
             completion([], nil)
             return
         }
         
-        NetworkService().download(link: url,
-                                  completion: { [weak self] (data, error) in
+        networkService.download(link: url,
+                                completion: { [weak self] (data, error) in
                                     
                                     guard data != nil else {
                                         completion([], error)
@@ -93,9 +92,5 @@ class EventService {
                                         print("🚨 NetworkService error:\(error)")
                                     }
         })
-    }
-    
-    func encodeSearchTerm(_ searchTerm : String) -> String {
-        return searchTerm.replacingOccurrences(of: " ", with: "+")
     }
 }

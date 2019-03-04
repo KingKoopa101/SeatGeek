@@ -8,31 +8,49 @@
 
 import Foundation
 
-struct URLs {
-    
-    private  struct Routes {
-        static let event = "events"
-        static let venue = "venues"
-        static let performer = "performer"
-    }
-    
-    static let Client_id = "client_id=MTU1NDY5MTZ8MTU1MTQwMzUwMy4xMQ"
-    static let SeatGeekURL = "https://api.seatgeek.com/2/"
-    static let placeholderURL = "https://placebear.com"
-    
-    private static let EventsRoute = SeatGeekURL + Routes.event
-    
-    static var EventBaseUrl: String {
-        return EventsRoute + "?" + Client_id
-    }
-}
-
 /*
 Punted on this class to complete more of the other work downstream.
 This could be replaced with a more thorough solution such as AFNetworking.
 Also, could use some libraries more adapted to the SeatGeek API
 */
+
+struct URLs {
+    static let scheme = "https"
+    static let host = "api.seatgeek.com"
+    static let eventPath = "events"
+    static let api_key = "MTU1NDY5MTZ8MTU1MTQwMzUwMy4xMQ"
+    
+    static let placeholderURL = "https://placebear.com"
+}
+
+enum APIPath: String {
+    case events = "/events"
+    case venues = "/venues"
+    case performer = "/performer"
+}
+
 class NetworkService {
+    
+    func baseURLComponents(path : APIPath) -> URLComponents{
+        var urlComponents = URLComponents()
+        urlComponents.scheme = URLs.scheme
+        urlComponents.host = URLs.host
+        urlComponents.path = path.rawValue
+        let apiKeyQuery = URLQueryItem(name: "client_id", value: URLs.api_key)
+        urlComponents.queryItems = [apiKeyQuery]
+        
+        return urlComponents
+    }
+    
+    func baseURLComponents(path : APIPath, searchTerm : String) -> URLComponents{
+        var urlComponents = baseURLComponents(path: path)
+        urlComponents.queryItems?.append(URLQueryItem(name: "q",
+                                                      value: searchTerm.replacingOccurrences(of: " ", with: "+")))
+        
+        return urlComponents
+    }
+    
+    
     func download (link: URL, completion: @escaping (_ data :Data?, _ error :Error?) -> Void){
         
         URLSession.shared.dataTask(with: link){
@@ -48,4 +66,3 @@ class NetworkService {
             }.resume()
     }
 }
-
