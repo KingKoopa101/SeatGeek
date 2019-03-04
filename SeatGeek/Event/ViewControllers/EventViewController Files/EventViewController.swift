@@ -32,10 +32,12 @@ class EventViewController : UIViewController {
         
         //GO further.
         let myView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
+        myView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 600)
         myView.eventTitleLabel.text = eventViewModel?.titleDisplayString()
         
         self.navigationItem.titleView = myView
-        self.navigationItem.prompt = " "
+//        self.navigationItem.prompt = " "
+        self.navigationItem.largeTitleDisplayMode = .always
         
         setupButton()
     }

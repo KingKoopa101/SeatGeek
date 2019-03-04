@@ -15,7 +15,7 @@ struct ResponseData: Decodable {
     var events: [Event]
 }
 
-struct Event: Decodable{
+struct Event: Codable{
     
     var title: String
     var short_title: String
@@ -26,7 +26,7 @@ struct Event: Decodable{
     var performers: [Performer]
 }
 
-struct Venue: Decodable{
+struct Venue: Codable{
     
     var name: String
     var city: String?
@@ -34,7 +34,7 @@ struct Venue: Decodable{
     var image: String?
 }
 
-struct Performer: Decodable{
+struct Performer: Codable{
     
     var name: String
 //    var city: String?

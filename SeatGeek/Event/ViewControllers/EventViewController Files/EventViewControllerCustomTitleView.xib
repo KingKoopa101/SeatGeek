@@ -16,22 +16,17 @@
             <rect key="frame" x="0.0" y="0.0" width="378" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gpW-Dl-iDp">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXD-4d-r1p">
                     <rect key="frame" x="5" y="5" width="368" height="29"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jXD-4d-r1p">
-                            <rect key="frame" x="0.0" y="0.0" width="368" height="29"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                </stackView>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <constraints>
-                <constraint firstItem="gpW-Dl-iDp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="dxD-xV-veG"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="gpW-Dl-iDp" secondAttribute="trailing" constant="5" id="vqk-wH-Ety"/>
-                <constraint firstItem="gpW-Dl-iDp" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="z9V-YJ-SiL"/>
+                <constraint firstItem="jXD-4d-r1p" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="5" id="Cw7-AS-7Su"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jXD-4d-r1p" secondAttribute="trailing" constant="5" id="TfD-lA-Op2"/>
+                <constraint firstItem="jXD-4d-r1p" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="5" id="xpt-er-Gbd"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

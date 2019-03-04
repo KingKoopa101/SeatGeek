@@ -12,6 +12,18 @@ class EventViewModel {
     private let event : Event
     private var isFavorite : Bool
     
+    private lazy var isoDateFormatter : DateFormatter = {
+        let isoDateFormatterLazy = DateFormatter()
+        isoDateFormatterLazy.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        return isoDateFormatterLazy
+    }()
+    
+    private lazy var dateFormatter : DateFormatter = {
+        let dateFormatterLazy = DateFormatter()
+        dateFormatterLazy.dateFormat = "E, d MMM yyyy HH:mm a"
+        return dateFormatterLazy
+    }()
+    
     var eventId : Int {
         return event.id
     }
@@ -37,12 +49,6 @@ class EventViewModel {
         guard event.date_tbd == false else{
             return "Event Time:TBD"
         }
-        //yyyy-MM-dd'T'HH:mm:ss
-        
-        let isoDateFormatter = DateFormatter()
-        isoDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm a"
         
         guard let date = isoDateFormatter.date(from:event.datetime_local) else{
                 return "N/A"

@@ -12,8 +12,6 @@ import Foundation
 class EventService {
     
     private var allFavoritesFromCache: [String:String]
-    private var events : [Event] = []
-    private var eventViewModels : [EventViewModel] = []
     private let baseURL : String = URLs.EventBaseUrl
     
     //
@@ -78,7 +76,13 @@ class EventService {
         NetworkService().download(link: url,
                                   completion: { [weak self] (data, error) in
                                     
-                                    if self == nil{
+                                    guard data != nil else {
+                                        completion([], error)
+                                        return
+                                    }
+                                    
+                                    guard let strongSelf = self else {
+                                        completion([], error)
                                         return
                                     }
                                     
@@ -86,26 +90,19 @@ class EventService {
                                         let decoder = JSONDecoder()
                                         let jsonData = try decoder.decode(ResponseData.self, from: data!)
                                         
-                                        DispatchQueue.main.async { [weak self] in
+                                        var tempArray: [EventViewModel] = []
+                                        for event in jsonData.events{
+                                            let newModel : EventViewModel
                                             
-                                            self?.events = jsonData.events
-                                            var tempArray: [EventViewModel] = []
-                                            for event in jsonData.events{
-                                                let newModel : EventViewModel
-                                                
-                                                if (self?.allFavoritesFromCache[String(event.id)] != nil){
-                                                    newModel = EventViewModel(event: event, isFavorite: true)
-                                                }else{
-                                                    newModel = EventViewModel(event: event, isFavorite: false)
-                                                }
-                                                
-                                                tempArray.append(newModel)
+                                            if (strongSelf.allFavoritesFromCache[String(event.id)] != nil){
+                                                newModel = EventViewModel(event: event, isFavorite: true)
+                                            }else{
+                                                newModel = EventViewModel(event: event, isFavorite: false)
                                             }
                                             
-                                            self?.eventViewModels = tempArray
-                                            
-                                            completion(tempArray, nil)
+                                            tempArray.append(newModel)
                                         }
+                                        completion(tempArray, nil)
                                     } catch {
                                         completion([], error)
                                         print("🚨 NetworkService error:\(error)")

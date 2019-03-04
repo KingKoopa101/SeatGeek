@@ -40,6 +40,11 @@ class EventTableCoordinator: Coordinator {
                     if let weakSelf = self,
                         let searchViewController = weakSelf.eventSearchViewController{
                         
+                        if let realError = error {
+                            searchViewController.presentAlert(withTitle: "Error",
+                                                             message: realError.localizedDescription)
+                        }
+                        
                         weakSelf.allEvents = events
                         searchViewController.events = events
                         searchViewController.tableView.reloadData()
@@ -84,18 +89,19 @@ extension EventTableCoordinator: EventSearchViewControllerDelegate {
             self?.eventService.eventsForSearchTerm(searchTerm, completion: {
                 [weak self] (events, error) in
                 DispatchQueue.main.async {
-//                    if (err)
-                    
                     
                     if let weakSelf = self,
                         let eventViewController = weakSelf.eventSearchViewController{
+                        
+                        if let realError = error {
+                            eventViewController.presentAlert(withTitle: "Error",
+                                                             message: realError.localizedDescription)
+                        }
+                        
                         eventViewController.filteredEvents = events
                         eventViewController.tableView.reloadData()
                     }
                 }
-                
-                //need error here?
-//                completion(events)
             })
         }
     }
