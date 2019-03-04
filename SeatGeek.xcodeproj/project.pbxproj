@@ -54,6 +54,7 @@
 		F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventViewControllerCustomTitleView.xib; sourceTree = "<group>"; };
 		F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewControllerCustomTitleView.swift; sourceTree = "<group>"; };
 		F8B8CBEC222C62B500389D9F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		F8E7A4A1222DBEDE001C1286 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +92,7 @@
 				F8B8CBBA2227887A00389D9F /* LaunchScreen.storyboard */,
 				F8B8CBB12227887900389D9F /* AppDelegate.swift */,
 				F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */,
+				F8E7A4A1222DBEDE001C1286 /* README.md */,
 				F8B8CBDA222AE94900389D9F /* Coordinators */,
 				F8B8CBCD2229E8F800389D9F /* Event */,
 				F8B8CBE5222C45EA00389D9F /* Services */,
