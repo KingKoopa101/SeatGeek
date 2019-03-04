@@ -35,11 +35,11 @@ extension UIViewController {
 import Kingfisher
 
 extension UIImageView {
-    func loadImage(with imageURLString : String, isPlaceholder: Bool){
+    func loadImage(with imageURLString : String, appendSize: Bool){
         
         var URLstring = imageURLString
         
-        if isPlaceholder {
+        if appendSize {
             
             let width : Int = Int(frame.size.width)
             let height : Int = Int(frame.size.height)

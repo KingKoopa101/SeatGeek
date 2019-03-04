@@ -22,6 +22,7 @@ struct Event: Codable{
     var id: Int
     var datetime_local: String
     var date_tbd: Bool
+    var time_tbd: Bool
     var venue: Venue?
     var performers: [Performer]
 }

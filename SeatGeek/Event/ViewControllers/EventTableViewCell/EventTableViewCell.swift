@@ -22,11 +22,9 @@ class EventTableViewCell : UITableViewCell {
         self.eventDateLabel.text = eventViewModel.dateDisplayString()
         self.eventLocationLabel.text = eventViewModel.venueLocationDisplayString()
         
-        if let imageURL = eventViewModel.venueImageURLString(){
-            self.eventImageView.loadImage(with: imageURL, isPlaceholder: false)
-        }else{
-            self.eventImageView.loadImage(with: URLs.placeholderURL, isPlaceholder: true)
-        }
+        let imageURLTuple = eventViewModel.venueImageURLStringTuple()
+        self.eventImageView.loadImage(with: imageURLTuple.imageUrl,
+                                      appendSize: imageURLTuple.needsSize)
         
         if (eventViewModel.isFavoriteEvent()){
             self.eventFavoriteIconImageView.image = UIImage(named: "Heart")

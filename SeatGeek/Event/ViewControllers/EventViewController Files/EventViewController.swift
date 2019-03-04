@@ -18,28 +18,60 @@ class EventViewController : UIViewController {
     
     //how can we initialize with this value
     var eventViewModel : EventViewModel?
+    var eventViewControllerCustomTitleView : EventViewControllerCustomTitleView?
+    
     weak var delegate: EventViewControllerDelegate?
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         setupUI()
+        
+        setupButton()
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupDataFromEvent()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
+    @objc func dismissViewController() {
+        if let navController = self.navigationController {
+            navController.dismiss(animated: true, completion: nil)
+        }else{
+            print("Unable to dismiss Navigation Controller")
+        }
     }
     
     func setupUI() {
+        //        setupUI()
         
-        //GO further.
-        let myView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
-        myView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 600)
-        myView.eventTitleLabel.text = eventViewModel?.titleDisplayString()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named:"BackButton")!,
+                                                                style: .done, target: self,
+                                                                action: #selector(EventViewController.dismissViewController))
         
-        self.navigationItem.titleView = myView
-//        self.navigationItem.prompt = " "
-        self.navigationItem.largeTitleDisplayMode = .always
-        
-        setupButton()
+        if let eventModel = eventViewModel{
+            /* label */
+            
+            let label:UILabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 200, height: 88))
+            label.text = eventModel.titleDisplayString()
+            label.font = UIFont.systemFont(ofSize: 28)
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.backgroundColor = UIColor.red
+            
+            self.navigationItem.titleView = label
+            
+            eventViewControllerCustomTitleView?.layoutSubviews()
+            eventViewControllerCustomTitleView?.sizeToFit()
+            
+        }
     }
     
     func setupButton () {
@@ -63,13 +95,15 @@ class EventViewController : UIViewController {
     
     func setupDataFromEvent() {
 
-        eventLocationLabel.text = eventViewModel?.venueLocationDisplayString()
-        eventDateLabel.text = eventViewModel?.dateDisplayString()
-        
-        if let imageURL = eventViewModel?.venueImageURLString(){
-            self.eventImageView.loadImage(with: imageURL, isPlaceholder: false)
+        if let eventModel = eventViewModel{
+            eventLocationLabel.text = eventModel.venueLocationDisplayString()
+            eventDateLabel.text = eventModel.dateDisplayString()
+            
+            let imageURLTuple = eventModel.venueImageURLStringTuple()
+            self.eventImageView.loadImage(with: imageURLTuple.imageUrl,
+            appendSize: imageURLTuple.needsSize)
         }else{
-            self.eventImageView.loadImage(with: URLs.placeholderURL, isPlaceholder: true)
+            print("EventViewController : Loaded without EventModel!")
         }
     }
     

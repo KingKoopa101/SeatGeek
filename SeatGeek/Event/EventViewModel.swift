@@ -12,6 +12,7 @@ class EventViewModel {
     private let event : Event
     private var isFavorite : Bool
     
+    //Pull these out?
     private lazy var isoDateFormatter : DateFormatter = {
         let isoDateFormatterLazy = DateFormatter()
         isoDateFormatterLazy.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -47,7 +48,11 @@ class EventViewModel {
     func dateDisplayString () -> String {
         
         guard event.date_tbd == false else{
-            return "Event Time:TBD"
+            return "Event Date: TBD"
+        }
+        
+        guard event.time_tbd == false else{
+            return "Event Time: TBD"
         }
         
         guard let date = isoDateFormatter.date(from:event.datetime_local) else{
@@ -57,6 +62,7 @@ class EventViewModel {
         return dateFormatter.string(from: date)
     }
     
+    //Could be better.
     func selectedAsFavorite(_ selected : Bool){
         isFavorite = selected
         print("👍 Event Favorited: \(event.title) :\(selected)")
@@ -70,19 +76,24 @@ class EventViewModel {
     
     func venueLocationDisplayString () -> String {
         
-        if let city = self.event.venue?.city,
-            let state = self.event.venue?.state{
+        if let venue = self.event.venue,
+            let city = venue.city,
+            let state = venue.state{
             return "\(city), \(state)"
         }
         
-        return ""
+        return "No Location"
     }
     
-    func venueImageURLString() -> String? {
-        if let venueURL = event.venue?.image {
-            return venueURL
+    private func venueImageURLString() -> String? {
+        
+        guard let venue = event.venue else{
+            return nil
         }
         
+        if let venueURL = venue.image {
+            return venueURL
+        }
 
         for performer in event.performers {
             if let performerURL = performer.image{
@@ -93,15 +104,12 @@ class EventViewModel {
         return nil
     }
     
-    //Venue
-    
-    func hasVenue() -> Bool {
-        return (self.event.venue != nil)
-    }
-    
-    func hasLocationString () -> Bool {
-        return (hasVenue() &&
-            self.event.venue?.city != nil &&
-            self.event.venue?.state != nil)
+    func venueImageURLStringTuple() -> (imageUrl : String, needsSize : Bool) {
+        
+        if let imageURL = self.venueImageURLString(){
+            return (imageURL, false)
+        }else{
+            return (URLs.placeholderURL, true)
+        }
     }
 }

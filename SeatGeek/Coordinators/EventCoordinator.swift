@@ -71,9 +71,18 @@ class EventCoordinator: Coordinator {
         let eventViewController = EventViewController(nibName: "EventViewController", bundle: nil)
         eventViewController.eventViewModel = model
         eventViewController.delegate = self
+        
         self.eventViewController = eventViewController
         
-        presenter.pushViewController(eventViewController, animated: true)
+//        presenter.pushViewController(eventViewController, animated: true)
+        
+        let navigation = UINavigationController(rootViewController: eventViewController)
+
+        navigation.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: nil, action: nil)
+        
+//        navigation.navigationItem.setHidesBackButton(false, animated: true)
+//
+        presenter.present(navigation, animated: true, completion:nil)
     }
 }
 
