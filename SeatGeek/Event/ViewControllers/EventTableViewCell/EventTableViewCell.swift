@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import Kingfisher
 
 class EventTableViewCell : UITableViewCell {
     @IBOutlet weak var eventImageView: UIImageView!
