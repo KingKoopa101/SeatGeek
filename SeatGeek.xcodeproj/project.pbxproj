@@ -95,8 +95,6 @@
 				F8B8CBE5222C45EA00389D9F /* Services */,
 				F8B8CBB82227887A00389D9F /* Assets.xcassets */,
 				F8B8CBBD2227887A00389D9F /* Info.plist */,
-				F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */,
-				F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */,
 				F8B8CBE1222C3F1D00389D9F /* FavoriteButton.swift */,
 				F8B8CBEC222C62B500389D9F /* Extensions.swift */,
 			);
@@ -118,8 +116,7 @@
 			children = (
 				F8B8CBC7222794A800389D9F /* EventTableViewController.swift */,
 				F8B8CBE3222C42B900389D9F /* EventSearchViewController.swift */,
-				F8B8CBD2222AD9EC00389D9F /* EventViewController.swift */,
-				F8B8CBD4222ADAA700389D9F /* EventViewController.xib */,
+				F8B8CBEE222C9E1700389D9F /* EventViewController Files */,
 				F8B8CBD7222AE79B00389D9F /* EventTableViewCell */,
 			);
 			path = ViewControllers;
@@ -159,6 +156,17 @@
 				F8B8CBCB2228C7BE00389D9F /* EventService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		F8B8CBEE222C9E1700389D9F /* EventViewController Files */ = {
+			isa = PBXGroup;
+			children = (
+				F8B8CBD2222AD9EC00389D9F /* EventViewController.swift */,
+				F8B8CBD4222ADAA700389D9F /* EventViewController.xib */,
+				F8B8CBEA222C4DF500389D9F /* EventViewControllerCustomTitleView.swift */,
+				F8B8CBE8222C4CAB00389D9F /* EventViewControllerCustomTitleView.xib */,
+			);
+			path = "EventViewController Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

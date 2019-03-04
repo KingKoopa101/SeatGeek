@@ -62,10 +62,10 @@ class EventViewController : UIViewController {
         eventLocationLabel.text = eventViewModel?.venueLocationDisplayString()
         eventDateLabel.text = eventViewModel?.dateDisplayString()
         
-        //placeholder for error needed.
-        if let imageURLString = eventViewModel?.venueImageURLString(),
-            let imageURL = URL(string: imageURLString){
-            self.eventImageView.kf.setImage(with: imageURL)
+        if let imageURL = eventViewModel?.venueImageURLString(){
+            self.eventImageView.loadImage(with: imageURL, isPlaceholder: false)
+        }else{
+            self.eventImageView.loadImage(with: URLs.placeholderURL, isPlaceholder: true)
         }
     }
     

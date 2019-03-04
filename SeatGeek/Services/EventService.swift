@@ -14,7 +14,7 @@ class EventService {
     private var allFavoritesFromCache: [String:String]
     private var events : [Event] = []
     private var eventViewModels : [EventViewModel] = []
-    private let baseURL : String = "https://api.seatgeek.com/2/events?client_id=MTU1NDY5MTZ8MTU1MTQwMzUwMy4xMQ"
+    private let baseURL : String = URLs.EventBaseUrl
     
     //
     init() {
@@ -94,9 +94,9 @@ class EventService {
                                                 let newModel : EventViewModel
                                                 
                                                 if (self?.allFavoritesFromCache[String(event.id)] != nil){
-                                                    newModel = EventViewModel(event, true)
+                                                    newModel = EventViewModel(event: event, isFavorite: true)
                                                 }else{
-                                                    newModel = EventViewModel(event, false)
+                                                    newModel = EventViewModel(event: event, isFavorite: false)
                                                 }
                                                 
                                                 tempArray.append(newModel)

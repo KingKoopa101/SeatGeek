@@ -29,3 +29,22 @@ class NetworkService {
             }.resume()
     }
 }
+
+struct URLs {
+    
+    private  struct Routes {
+        static let event = "events"
+        static let venue = "venues"
+        static let performer = "performer"
+    }
+    
+    static let Client_id = "client_id=MTU1NDY5MTZ8MTU1MTQwMzUwMy4xMQ"
+    static let SeatGeekURL = "https://api.seatgeek.com/2/"
+    static let placeholderURL = "https://placebear.com"
+    
+    private static let EventsRoute = SeatGeekURL + Routes.event
+    
+    static var EventBaseUrl: String {
+        return EventsRoute + "?" + Client_id
+    }
+}
