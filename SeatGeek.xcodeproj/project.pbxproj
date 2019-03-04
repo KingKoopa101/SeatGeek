@@ -90,6 +90,7 @@
 			children = (
 				F8B8CBBA2227887A00389D9F /* LaunchScreen.storyboard */,
 				F8B8CBB12227887900389D9F /* AppDelegate.swift */,
+				F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */,
 				F8B8CBDA222AE94900389D9F /* Coordinators */,
 				F8B8CBCD2229E8F800389D9F /* Event */,
 				F8B8CBE5222C45EA00389D9F /* Services */,
@@ -134,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				F8B8CBC3222788A500389D9F /* Coordinator.swift */,
-				F8B8CBC5222789B000389D9F /* ApplicationCoordinator.swift */,
 				F8B8CBD0222A3CC400389D9F /* EventCoordinator.swift */,
 			);
 			path = Coordinators;

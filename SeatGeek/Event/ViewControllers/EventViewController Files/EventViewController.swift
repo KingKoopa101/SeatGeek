@@ -52,6 +52,10 @@ class EventViewController : UIViewController {
                                                                 style: .done, target: self,
                                                                 action: #selector(EventViewController.dismissViewController))
         
+        let rightSwipeGesture = UISwipeGestureRecognizer(target : self, action :#selector(EventViewController.dismissViewController))
+        rightSwipeGesture.direction = .right
+        view.addGestureRecognizer(rightSwipeGesture)
+        
         if let eventModel = eventViewModel{
             //Load from nib extension
             let eventTitleView = Bundle.loadView(fromNib: "EventViewControllerCustomTitleView", withType: EventViewControllerCustomTitleView.self)
