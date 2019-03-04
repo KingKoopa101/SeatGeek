@@ -55,23 +55,23 @@ class EventViewController : UIViewController {
                                                                 style: .done, target: self,
                                                                 action: #selector(EventViewController.dismissViewController))
         
-        if let eventModel = eventViewModel{
-            /* label */
-            
-            let label:UILabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 200, height: 88))
-            label.text = eventModel.titleDisplayString()
-            label.font = UIFont.systemFont(ofSize: 28)
-            label.textAlignment = .center
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.backgroundColor = UIColor.red
-            
-            self.navigationItem.titleView = label
-            
-            eventViewControllerCustomTitleView?.layoutSubviews()
-            eventViewControllerCustomTitleView?.sizeToFit()
-            
-        }
+//        if let eventModel = eventViewModel{
+//            /* label */
+//
+//            let label:UILabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: 200, height: 88))
+//            label.text = eventModel.titleDisplayString()
+//            label.font = UIFont.systemFont(ofSize: 28)
+//            label.textAlignment = .center
+//            label.numberOfLines = 0
+//            label.lineBreakMode = .byWordWrapping
+//            label.backgroundColor = UIColor.red
+//
+//            self.navigationItem.titleView = label
+//
+//            eventViewControllerCustomTitleView?.layoutSubviews()
+//            eventViewControllerCustomTitleView?.sizeToFit()
+//
+//        }
     }
     
     func setupButton () {
@@ -98,6 +98,8 @@ class EventViewController : UIViewController {
         if let eventModel = eventViewModel{
             eventLocationLabel.text = eventModel.venueLocationDisplayString()
             eventDateLabel.text = eventModel.dateDisplayString()
+            
+            title = eventModel.titleDisplayString()
             
             let imageURLTuple = eventModel.venueImageURLStringTuple()
             self.eventImageView.loadImage(with: imageURLTuple.imageUrl,
