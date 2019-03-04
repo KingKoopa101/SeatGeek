@@ -16,7 +16,8 @@ class EventViewModel {
         return event.id
     }
     
-    init(_ event:Event, _ isFavorite:Bool) {
+    init(event : Event,
+         isFavorite : Bool) {
         self.event = event
         self.isFavorite = isFavorite
     }
@@ -71,7 +72,7 @@ class EventViewModel {
         return ""
     }
     
-    func venueImageURLString() -> String {
+    func venueImageURLString() -> String? {
         if let venueURL = event.venue?.image {
             return venueURL
         }
@@ -83,7 +84,7 @@ class EventViewModel {
             }
         }
         
-        return "https://placebear.com/200/300"
+        return nil
     }
     
     //Venue
