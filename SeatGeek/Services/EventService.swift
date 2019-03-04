@@ -71,7 +71,7 @@ class EventService {
                                         completion([], error)
                                         return
                                     }
-                                    
+                                    //Should seperate this out further.
                                     do {
                                         let decoder = JSONDecoder()
                                         let jsonData = try decoder.decode(ResponseData.self, from: data!)
